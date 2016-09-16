@@ -3,5 +3,12 @@
     <string name="app_name">Lab 1</string>
     <string name="hello_message">Hello World!</string>
     <string name="ButtonText">I\'m A Button</string>
+    <string name="app_name2">Lab 2</string>
+    <string name="loginTextView">Login</string>
+    <string name="passTextView">Password</string>
+    <string name="radioButton">Button 1</string>
+    <string name="checkBox">Button 2</string>
+    <string name="switchView">Enable Something</string>
+
 </resources>
 
