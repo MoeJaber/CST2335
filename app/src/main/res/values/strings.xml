@@ -9,6 +9,10 @@
     <string name="radioButton">Button 1</string>
     <string name="checkBox">Button 2</string>
     <string name="switchView">Enable Something</string>
-
+    <string name="loginButton">Login</string>
+    <string name="dialog_title">Dialog Title</string>
+    <string name="dialog_message">Dialog Message</string>
+    <string name="ok">ok</string>
+    <string name="cancel">cancel</string>
 </resources>
 
