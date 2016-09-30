@@ -38,43 +38,44 @@ public class ListItemsActivity extends AppCompatActivity {
         //ImageButton find by ID to imageButton in design
         camImage = (ImageButton) findViewById(R.id.imageButton);
         //Create a onClick Listener
-        camImage.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        camImage.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 Intent takePicIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePicIntent.resolveActivity(getPackageManager()) != null){
-                    startActivityForResult(takePicIntent,REQUEST_IMAGE_CAPTURE);
+                if (takePicIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(takePicIntent, REQUEST_IMAGE_CAPTURE);
                 }
                 //Send data to onActivityResult to handle image
-                onActivityResult(REQUEST_IMAGE_CAPTURE,RESULT_OK,takePicIntent);
+                onActivityResult(REQUEST_IMAGE_CAPTURE, RESULT_OK, takePicIntent);
             }
 
         });
     }
-    //store image in imageButton
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
 
-        if(requestCode== REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+    //store image in imageButton
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle thumbnail = data.getExtras();
-            if(thumbnail != null) {
+            if (thumbnail != null) {
                 Bitmap imageBitmap = (Bitmap) thumbnail.get("data");
                 camImage.setImageBitmap(imageBitmap);
             }
         }
     }
+
     //Switch button onClick
-    protected void setOnCheckedChanged(View v){
-        Switch switchButton = (Switch)v;
-        if (switchButton.isChecked()){
-            Toast toast = Toast.makeText(this , text, duration); //this is the ListActivity
+    protected void setOnCheckedChanged(View v) {
+        Switch switchButton = (Switch) v;
+        if (switchButton.isChecked()) {
+            Toast toast = Toast.makeText(this, text, duration); //this is the ListActivity
             toast.show(); //display your message box
-        }
-        else {
-            Toast toast = Toast.makeText(this , textOff, durationOff); //this is the ListActivity
+        } else {
+            Toast toast = Toast.makeText(this, textOff, durationOff); //this is the ListActivity
             toast.show(); //display your message box
         }
     }
 
-    protected void checkBoxFinish(View v){
+    protected void checkBoxFinish(View v) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ListItemsActivity.this);
         // 2. Chain together various setter methods to set the dialog characteristics
@@ -99,34 +100,34 @@ public class ListItemsActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         Log.i(ACTIVITY_NAME, "In onResume()");
 
     }
+
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
         Log.i(ACTIVITY_NAME, "In onStart()");
     }
+
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
         Log.i(ACTIVITY_NAME, "In onPause()");
     }
+
     @Override
-    protected void onStop(){
+    protected void onStop() {
         super.onStop();
         Log.i(ACTIVITY_NAME, "In onStop()");
     }
+
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         Log.i(ACTIVITY_NAME, "In onDestroy()");
     }
-    public void finish(){
-        Log.i(ACTIVITY_NAME, "In onFinish()");
-    }
-
-
 }
+

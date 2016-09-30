@@ -73,4 +73,11 @@ public class StartActivity extends AppCompatActivity {
         super.onDestroy();
         Log.i(ACTIVITY_NAME, "In onDestroy()");
     }
+
+    public void chatHandle(View view){
+        Log.i(ACTIVITY_NAME,"User Clicked Start Chat");
+        Intent intent = new Intent(StartActivity.this, ChatActivity.class);
+       startActivity(intent);
+    }
+
 }
