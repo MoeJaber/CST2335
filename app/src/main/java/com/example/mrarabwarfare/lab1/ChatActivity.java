@@ -1,5 +1,7 @@
 package com.example.mrarabwarfare.lab1;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -22,6 +24,10 @@ import android.widget.TextView;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -34,7 +40,11 @@ public class ChatActivity extends AppCompatActivity {
     Button sendChatButton;
     ChatAdapter messageAdapter;
     TextView message;
+    private SQLiteDatabase database;
+    private ChatDatabaseHelper dbHelper;
+
     ArrayList<String> chatArray = new ArrayList<String>();
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -42,7 +52,7 @@ public class ChatActivity extends AppCompatActivity {
     private GoogleApiClient client;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -56,21 +66,65 @@ public class ChatActivity extends AppCompatActivity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
-        messageAdapter =new ChatAdapter( this );
-        listViewChat.setAdapter (messageAdapter);
+        messageAdapter = new ChatAdapter(this);
+        listViewChat.setAdapter(messageAdapter);
+
+        dbHelper = new ChatDatabaseHelper(this);
+        //object of ChatDatabaseHelper
+
+        //open db
+        database = dbHelper.getWritableDatabase();
+        //dbHelper.onCreate(database);
+
+        if(database.isOpen()){
+            Log.i("ChatActivity","Db is OPEN");
+        }
 
 
+        Cursor cursor = database.rawQuery("select chat_id, message from chat;",null);
+        cursor.moveToFirst();
+
+
+
+        while (!cursor.isAfterLast()) {
+            Log.i("ChatActivity", "SQL MESSAGE: " + cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.KEY_MESSAGE)));
+            Log.i("ChatActivity", "Cursor's column count= " + cursor.getColumnCount());
+            chatArray.add(cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.KEY_MESSAGE)));
+            cursor.moveToNext();
+
+
+        }
+        cursor.close();
+
+        for (int i = 0; i <= cursor.getColumnCount(); i++) {
+           // Log.i("Column Name", + cursor.getColumnName(i));
+
+        }
+        Log.i("ChatActivity","Chatwindow onCREATE()");
     }
     //onClick send button
     public void chatArray(View view) {
         //store text from edit to string and then to ArrayList
         String chatMsg = editTextChat.getText().toString();
         chatArray.add(chatMsg);
+
+        ContentValues chatMessage = new ContentValues();
+        chatMessage.put(ChatDatabaseHelper.KEY_MESSAGE,chatMsg);
+        database.insert(ChatDatabaseHelper.CHAT_TABLE,null,chatMessage);
+
+
         //Restarts the process of getCount() getView()
         messageAdapter.notifyDataSetChanged();
         //Clear edit text
         editTextChat.setText("");
+        Log.i("ChatActivity","in SEND button");
 
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        Log.i("ChatActivity", "In onDestroy()");
     }
 
     @Override
@@ -151,6 +205,7 @@ public class ChatActivity extends AppCompatActivity {
             super(ctx, 0);
 
         }
+
 
     }
 
