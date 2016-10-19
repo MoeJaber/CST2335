@@ -16,4 +16,5 @@
     <string name="cancel">cancel French</string>
     <string name="startChat">Start Chat French</string>
     <string name="sendButton">Send French</string>
+    <string name="WeatherButton">Weather Forecast French</string>
 </resources>

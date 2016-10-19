@@ -80,4 +80,11 @@ public class StartActivity extends AppCompatActivity {
        startActivity(intent);
     }
 
+    public void weatherOpenAct(View view){
+        Log.i(ACTIVITY_NAME,"User Clicked Weather Forecast");
+        Intent intent = new Intent(StartActivity.this, WeatherForecast.class);
+        startActivity(intent);
+
+    }
+
 }

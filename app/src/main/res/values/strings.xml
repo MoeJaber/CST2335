@@ -17,6 +17,8 @@
     <string name="startChat">Start Chat</string>
     <string name="title_activity_chat">ChatActivity</string>
     <string name="sendButton">Send</string>
+    <string name="title_activity_weather_forecast">WeatherForecast</string>
+    <string name="WeatherButton">Weather Forecast</string>
 
 </resources>
 
